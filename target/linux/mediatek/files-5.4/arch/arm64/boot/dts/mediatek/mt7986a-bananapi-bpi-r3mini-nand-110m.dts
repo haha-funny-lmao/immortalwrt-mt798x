@@ -1,10 +1,22 @@
 /dts-v1/;
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/leds/common.h>
+
 #include "mt7986a.dtsi"
 #include "mt7986a-pinctrl.dtsi"
 #include "mt7986-spim-nand-partition-bpir3_mini-110m.dtsi"
 / {
-	model = "Bananapi BPI-R3MINI 110M Layout";
+	model = "Bananapi BPi-R3 Mini NAND 110M";
 	compatible = "bananapi,bpi-r3mini", "mediatek,mt7986a";
+
+	aliases {
+		led-boot = &status_led;
+		led-failsafe = &status_led;
+		led-running = &status_led;
+		led-upgrade = &status_led;
+	};
+
 	chosen {
 		bootargs = "console=ttyS0,115200n1 loglevel=8  \
 				earlycon=uart8250,mmio32,0x11002000";
@@ -13,6 +25,43 @@
 	memory {
 		reg = <0 0x40000000 0 0x10000000>;
 	};
+
+	gpio-keys {
+		compatible = "gpio-keys";
+
+		button-reset {
+			label = "reset";
+			linux,code = <KEY_RESTART>;
+			gpios = <&pio 7 GPIO_ACTIVE_LOW>;
+		};
+	};
+
+	gpio-leds {
+		compatible = "gpio-leds";
+
+		status_led: led-0 {
+			label = "green:status";
+			gpios = <&pio 19 GPIO_ACTIVE_HIGH>;
+		};
+
+		led-1 {
+			label = "blue:wlan2g";
+			gpios = <&pio 1 GPIO_ACTIVE_HIGH>;
+		};
+
+		led-2 {
+			label = "blue:wlan5g";
+			gpios = <&pio 2 GPIO_ACTIVE_HIGH>;
+		};
+	};
+
+
+	fan: pwm-fan {
+		compatible = "pwm-fan";
+		cooling-levels = <0 128 255>;
+		status = "okay";
+	};
+
 
 	reg_1p8v: regulator-1p8v {
 			compatible = "regulator-fixed";
@@ -32,6 +81,15 @@
 			regulator-always-on;
 	};
 
+	usb_vbus: regulator-usb-vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "usb_vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpios = <&pio 20 GPIO_ACTIVE_LOW>;
+		regulator-boot-on;
+	};
+
 	sound {
 		compatible = "mediatek,mt7986-wm8960-machine";
 		mediatek,platform = <&afe>;
@@ -44,9 +102,13 @@
 	};
 };
 
+&crypto {
+	status = "okay";
+};
+
 &pwm {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pwm0_pin &pwm1_pin_g1>;
+	pinctrl-0 = <&pwm_pins>;
 	status = "okay";
 };
 
@@ -97,6 +159,8 @@
 
 &eth {
 	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&eth_pins>;
 
 	gmac0: mac@0 {
 		compatible = "mediatek,eth-mac";
@@ -127,32 +191,45 @@
 		#size-cells = <0>;
 
 		phy14: phy@14 {
-			/* EN8811H PHY ID */
 			compatible = "ethernet-phy-id03a2.a411";
-			/* PHY Address */
 			reg = <14>;
-			reset-gpios = <&pio 49 1>;     /* GPIO49 */
+			pinctrl-names = "default";
+			pinctrl-0 = <&en8811_pwr_a>;
+
+			airoha,polarity = <3>;
+
+			interrupt-parent = <&pio>;
+			interrupts = <48 IRQ_TYPE_LEVEL_HIGH>;
+			reset-gpios = <&pio 49 GPIO_ACTIVE_LOW>;
 			reset-assert-us = <10000>;
 			reset-deassert-us = <20000>;
+
 			phy-mode = "2500base-x";
 			full-duplex;
 			pause;
 		};
 
 		phy15: phy@15 {
-			/* EN8811H PHY ID */
 			compatible = "ethernet-phy-id03a2.a411";
-			/* PHY Address */
 			reg = <15>;
-			reset-gpios = <&pio 47 1>;     /* GPIO47 */
+			pinctrl-names = "default";
+			pinctrl-0 = <&en8811_pwr_b>;
+
+			airoha,polarity = <3>;
+
+			interrupt-parent = <&pio>;
+			interrupts = <46 IRQ_TYPE_LEVEL_HIGH>;
+			reset-gpios = <&pio 47 GPIO_ACTIVE_LOW>;
 			reset-assert-us = <10000>;
 			reset-deassert-us = <20000>;
+
 			phy-mode = "2500base-x";
 			full-duplex;
 			pause;
 		};
 	};
 };
+
 
 &hnat {
 	mtketh-wan = "eth1";
@@ -191,7 +268,8 @@
 &spi1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&spic_pins_g2>;
-	status = "okay";
+	/* conflicts with M.2 pin */
+	status = "disabled";
 };
 
 &mmc0 {
@@ -226,7 +304,45 @@
 	pinctrl-1 = <&wf_dbdc_pins>;
 };
 
+&xhci {
+	pinctrl-names = "default";
+	pinctrl-0 = <&usb_ngff_pins>;
+	vusb33-supply = <&reg_3p3v>;
+	vbus-supply = <&usb_vbus>;
+	status = "okay";
+};
+
 &pio {
+
+	en8811_pwr_a: en8811-pwr-a {
+		pins = "GPIO_11";
+		drive-strength = <8>;
+		mediatek,pull-down-adv = <1>;
+		output-low;
+	};
+
+	en8811_pwr_b: en8811-pwr-b {
+		pins = "GPIO_12";
+		drive-strength = <8>;
+		mediatek,pull-down-adv = <1>;
+		output-low;
+	};
+
+	eth_pins: eth-pins {
+		mux {
+			function = "eth";
+			groups = "mdc_mdio";
+		};
+	};
+
+
+	pwm_pins: pwm-pins {
+		mux {
+			function = "pwm";
+			groups = "pwm0", "pwm1_0";
+		};
+	};
+
         mmc0_pins_default: mmc0-pins-50-to-61-default {
                 mux {
                         function = "flash";
@@ -285,6 +401,41 @@
                 };
         };
 
+
+	usb_ngff_pins: usb-ngff-pins {
+		ngff-gnss-off {
+			pins = "GPIO_6";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+
+		ngff-pe-rst {
+			pins = "GPIO_7";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+		ngff-wwan-off {
+			pins = "GPIO_8";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+		ngff-pwr-off {
+			pins = "GPIO_9";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+		ngff-rst {
+			pins = "GPIO_10";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+		ngff-coex {
+			pins = "SPI1_CS";
+			drive-strength = <8>;
+			mediatek,pull-up-adv = <1>;
+		};
+	};
+
 	spi_flash_pins: spi-flash-pins-33-to-38 {
 		mux {
 			function = "flash";
@@ -336,3 +487,4 @@
 		};
 	};
 };
+
