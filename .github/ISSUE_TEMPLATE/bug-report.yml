@@ -13,18 +13,18 @@ body:
   - type: input
     id: version
     attributes:
-      label: ImmortalWrt version
+      label: OpenWrt version
       description: |
-        The ImmortalWrt release or commit hash where this bug occurs (use command below).
+        The OpenWrt release or commit hash where this bug occurs (use command below).
         ```. /etc/openwrt_release && echo $DISTRIB_REVISION```
     validations:
       required: true
   - type: input
     id: target
     attributes:
-      label: ImmortalWrt target/subtarget
+      label: OpenWrt target/subtarget
       description: |
-        The ImmortalWrt target and subtarget where this bug is observed (use command below).
+        The OpenWrt target and subtarget where this bug is observed (use command below).
         ```. /etc/openwrt_release && echo $DISTRIB_TARGET```
     validations:
       required: true
@@ -80,5 +80,5 @@ body:
       label: Terms
       description: By submitting this issue, you agree to the terms below.
       options:
-        - label: I am reporting an issue for ImmortalWrt, not an unsupported fork.
+        - label: I am reporting an issue for OpenWrt, not an unsupported fork.
           required: true

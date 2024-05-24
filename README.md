@@ -1,8 +1,8 @@
 <img src="https://avatars.githubusercontent.com/u/53193414?s=200&v=4" alt="logo" width="200" height="200" align="right">
 
-# Project ImmortalWrt
+# Project OpenWrt
 
-ImmortalWrt is a fork of [OpenWrt](https://openwrt.org), with more packages ported, more devices supported, better performance, and special optimizations for mainland China users.<br/>
+OpenWrt is a fork of [OpenWrt](https://openwrt.org), with more packages ported, more devices supported, better performance, and special optimizations for mainland China users.<br/>
 Compared the official one, we allow to use hacks or non-upstreamable patches / modifications to achieve our purpose. Source from anywhere.
 
 Default login address: http://192.168.1.1 or http://immortalwrt.lan, username: __root__, password: _none_.
@@ -16,7 +16,7 @@ To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case sens
   ### Requirements
   To build with this project, Ubuntu 20.04 LTS is preferred. And you need use the CPU based on AMD64 architecture, with at least 4GB RAM and 25 GB available disk space. Make sure the __Internet__ is accessible.
 
-  The following tools are needed to compile ImmortalWrt, the package names vary between distributions.
+  The following tools are needed to compile OpenWrt, the package names vary between distributions.
 
   - Here is an example for Ubuntu users:<br/>
     - Method 1:
@@ -42,7 +42,7 @@ To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case sens
 
   Note:
   - Do everything as an unprivileged user, not root, without sudo.
-  - Using CPUs based on other architectures should be fine to compile ImmortalWrt, but more hacks are needed - No warranty at all.
+  - Using CPUs based on other architectures should be fine to compile OpenWrt, but more hacks are needed - No warranty at all.
   - You must __not__ have spaces or non-ascii characters in PATH or in the work folders on the drive.
   - If you're using Windows Subsystem for Linux (or WSL), removing Windows folders from PATH is required, please see [Build system setup WSL](https://openwrt.org/docs/guide-developer/build-system/wsl) documentation.
   - Using macOS as the host build OS is __not__ recommended. No warranty at all. You can get tips from [Build system setup macOS](https://openwrt.org/docs/guide-developer/build-system/buildroot.exigence.macosx) documentation.
@@ -70,9 +70,9 @@ To build your own firmware you need a GNU/Linux, BSD or MacOSX system (case sens
   8. Run `make -j$(nproc)` to build your firmware. This will download all sources, build the cross-compile toolchain and then cross-compile the GNU/Linux kernel & all chosen applications for your target system.
 
   ### Related Repositories
-  The main repository uses multiple sub-repositories to manage packages of different categories. All packages are installed via the ImmortalWrt package manager called opkg. If you're looking to develop the web interface or port packages to ImmortalWrt, please find the fitting repository below.
+  The main repository uses multiple sub-repositories to manage packages of different categories. All packages are installed via the OpenWrt package manager called opkg. If you're looking to develop the web interface or port packages to ImmortalWrt, please find the fitting repository below.
   - [LuCI Web Interface](https://github.com/immortalwrt/luci): Modern and modular interface to control the device via a web browser.
-  - [ImmortalWrt Packages](https://github.com/immortalwrt/packages): Community repository of ported packages.
+  - [OpenWrt Packages](https://github.com/immortalwrt/packages): Community repository of ported packages.
   - [OpenWrt Routing](https://github.com/openwrt/routing): Packages specifically focused on (mesh) routing.
 
 ## Support Information
@@ -88,7 +88,7 @@ For a list of supported devices see the [OpenWrt Hardware Database](https://open
   - Support Chat: group [#immortalwrt](https://matrix.to/#/#immortalwrt:matrix.org) on [Matrix](https://matrix.org/).
 
 ## License
-ImmortalWrt is licensed under [GPL-2.0-only](https://spdx.org/licenses/GPL-2.0-only.html).
+OpenWrt is licensed under [GPL-2.0-only](https://spdx.org/licenses/GPL-2.0-only.html).
 
 ## Acknowledgements
 <table>
