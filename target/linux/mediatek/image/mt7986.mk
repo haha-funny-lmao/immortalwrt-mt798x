@@ -396,14 +396,14 @@ define Device/xiaomi_redmi-router-ax6000-stock
 endef
 TARGET_DEVICES += xiaomi_redmi-router-ax6000-stock
 
-define Device/BPI-R3MINI-NAND
+define Device/bananapi_bpi-r3-mini-nand
   DEVICE_VENDOR := Banana Pi
-  DEVICE_MODEL := Banana Pi R3MINI
-  DEVICE_TITLE := MTK7986a BPI R3MINI NAND
+  DEVICE_MODEL := Banana Pi R3 Mini
+  DEVICE_TITLE := Banana Pi-R3 Mini NAND
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-nand
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-air-en8811h bpir3_mini-properties pciutils
+        kmod-phy-airoha-en8811h pciutils
   SUPPORTED_DEVICES := bananapi,bpi-r3mini
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
@@ -414,16 +414,16 @@ define Device/BPI-R3MINI-NAND
   IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
-TARGET_DEVICES += BPI-R3MINI-NAND
+TARGET_DEVICES += bananapi_bpi-r3-mini-nand
 
-define Device/BPI-R3MINI-NAND-110M
+define Device/bananapi_bpi-r3-mini-nand-110m
   DEVICE_VENDOR := Banana Pi
-  DEVICE_MODEL := Banana Pi R3MINI
-  DEVICE_TITLE := MTK7986a BPI R3MINI NAND 110M Layout
+  DEVICE_MODEL := Banana Pi R3 Mini
+  DEVICE_TITLE := Banana Pi-R3 Mini NAND 110M
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-nand-110m
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-air-en8811h bpir3_mini-properties pciutils
+        kmod-phy-airoha-en8811h pciutils
   SUPPORTED_DEVICES := bananapi,bpi-r3mini
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
@@ -434,21 +434,21 @@ define Device/BPI-R3MINI-NAND-110M
   IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
-TARGET_DEVICES += BPI-R3MINI-NAND-110M
+TARGET_DEVICES += bananapi_bpi-r3-mini-nand-110m
 
-define Device/BPI-R3MINI-EMMC
+define Device/bananapi_bpi-r3-mini-emmc
   DEVICE_VENDOR := Banana Pi
-  DEVICE_MODEL := Banana Pi R3MINI
-  DEVICE_TITLE := MTK7986a BPI R3MINI EMMC
+  DEVICE_MODEL := Banana Pi R3 Mini
+  DEVICE_TITLE := Banana Pi-R3 Mini EMMC
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-emmc
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-air-en8811h bpir3_mini-properties pciutils \
+        kmod-phy-airoha-en8811h bpir3_mini-properties pciutils \
         f2fsck losetup mkf2fs f2fs-tools kmod-fs-f2fs kmod-mmc
-  SUPPORTED_DEVICES := bananapi,bpi-r3mini-emmc
+  SUPPORTED_DEVICES := bananapi,bpi-r3mini
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
-TARGET_DEVICES += BPI-R3MINI-EMMC
+TARGET_DEVICES += bananapi_bpi-r3-mini-emmc
 
 define Device/jdcloud_re-cp-03
   DEVICE_VENDOR := JDCloud
