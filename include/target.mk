@@ -51,13 +51,10 @@ DEFAULT_PACKAGES.router:=\
 	ppp-mod-pppoe
 # For easy usage
 DEFAULT_PACKAGES.tweak:=\
-	block-mount \
-	default-settings-chn \
 	kmod-ipt-raw \
 	kmod-nf-nathelper \
 	kmod-nf-nathelper-extra \
 	luci \
-	luci-app-filetransfer \
 	luci-compat \
 	luci-lib-base \
 	luci-lib-fs \
