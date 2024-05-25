@@ -10,9 +10,6 @@
 #ifndef __EN8811H_H
 #define __EN8811H_H
 
-#define EN8811H_MD32_DM             "EthMD32.dm.bin"
-#define EN8811H_MD32_DSP            "EthMD32.DSP.bin"
-
 #define EN8811H_PHY_ID1             0x03a2
 #define EN8811H_PHY_ID2             0xa411
 #define EN8811H_PHY_ID              ((EN8811H_PHY_ID1 << 16) | EN8811H_PHY_ID2)
@@ -46,7 +43,7 @@
 #define MII_MMD_ADDR_DATA_REG       0x0e
 #define MMD_OP_MODE_DATA            BIT(14)
 
-#define EN8811H_DRIVER_VERSION      "v1.2.5"
+#define EN8811H_DRIVER_VERSION      "v1.2.4"
 
 #define LED_ON_CTRL(i)              (0x024 + ((i)*2))
 #define LED_ON_EN                   (1 << 15)
@@ -99,7 +96,6 @@ struct en8811h_priv {
 	unsigned int        dsp_crc32;
 	char                buf[512];
 	int                 pol;
-	int                 surge;
 };
 
 struct air_base_t_led_cfg {

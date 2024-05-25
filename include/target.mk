@@ -11,6 +11,7 @@ DEVICE_TYPE?=router
 
 # Default packages - the really basic set
 DEFAULT_PACKAGES:=\
+	block-mount \
 	base-files \
 	ca-bundle \
 	dropbear \

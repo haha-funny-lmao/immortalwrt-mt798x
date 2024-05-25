@@ -1,6 +1,6 @@
 KERNEL_LOADADDR := 0x48080000
 
-MT7986_USB_PKGS := blkid blockdev fdisk \
+MT7986_USB_PKGS := automount blkid blockdev fdisk \
     kmod-nls-cp437 kmod-nls-iso8859-1 kmod-usb2 kmod-usb3 \
     kmod-usb-net-rndis usbutils
 
@@ -402,7 +402,7 @@ define Device/bananapi_bpi-r3-mini-nand
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-nand
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-airoha-en8811h pciutils
+        pciutils
   SUPPORTED_DEVICES := bananapi,bpi-r3mini
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
@@ -422,7 +422,7 @@ define Device/bananapi_bpi-r3-mini-nand-110m
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-nand-110m
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-airoha-en8811h pciutils
+        pciutils
   SUPPORTED_DEVICES := bananapi,bpi-r3mini
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
@@ -442,8 +442,7 @@ define Device/bananapi_bpi-r3-mini-emmc
   DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-emmc
   DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
   DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        kmod-phy-airoha-en8811h bpir3_mini-properties pciutils \
-        f2fsck losetup mkf2fs f2fs-tools kmod-fs-f2fs kmod-mmc
+        pciutils f2fsck losetup mkf2fs f2fs-tools kmod-fs-f2fs kmod-mmc
   SUPPORTED_DEVICES := bananapi,bpi-r3mini
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
