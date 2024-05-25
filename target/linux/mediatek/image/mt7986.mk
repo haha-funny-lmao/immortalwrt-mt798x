@@ -407,33 +407,13 @@ define Device/bananapi_bpi-r3-mini-nand
   UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
   PAGESIZE := 2048
-  IMAGE_SIZE := 65536k
-  KERNEL_IN_UBI := 1
-  IMAGES += factory.bin
-  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
-endef
-TARGET_DEVICES += bananapi_bpi-r3-mini-nand
-
-define Device/bananapi_bpi-r3-mini-nand-110m
-  DEVICE_VENDOR := Banana Pi
-  DEVICE_MODEL := Banana Pi R3 Mini
-  DEVICE_TITLE := Banana Pi-R3 Mini NAND 110M
-  DEVICE_DTS := mt7986a-bananapi-bpi-r3mini-nand-110m
-  DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
-  DEVICE_PACKAGES := $(MT7986_USB_PKGS) $(MT7986_WWAN_PKGS) \
-        pciutils
-  SUPPORTED_DEVICES := bananapi,bpi-r3mini
-  UBINIZE_OPTS := -E 5
-  BLOCKSIZE := 128k
-  PAGESIZE := 2048
   IMAGE_SIZE := 110592k
   KERNEL_IN_UBI := 1
   IMAGES += factory.bin
   IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
-TARGET_DEVICES += bananapi_bpi-r3-mini-nand-110m
+TARGET_DEVICES += bananapi_bpi-r3-mini-nand
 
 define Device/bananapi_bpi-r3-mini-emmc
   DEVICE_VENDOR := Banana Pi

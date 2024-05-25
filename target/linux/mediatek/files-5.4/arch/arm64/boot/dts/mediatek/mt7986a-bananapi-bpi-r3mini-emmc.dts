@@ -5,7 +5,7 @@
 
 #include "mt7986a.dtsi"
 #include "mt7986a-pinctrl.dtsi"
-/ {
+/ { 
 	model = "Bananapi BPi-R3 Mini EMMC";
 	compatible = "bananapi,bpi-r3mini-emmc", "mediatek,mt7986a";
 
@@ -16,11 +16,12 @@
 		led-upgrade = &status_led;
 	};
 
-	chosen {
-		bootargs = "console=ttyS0,115200n1 loglevel=8 \
+  chosen {
+		bootargs = "console=ttyS0,115200n1 loglevel=8  \
 		earlycon=uart8250,mmio32,0x11002000 \
-		root=PARTLABEL=rootfs rootwait rootfstype=squashfs,f2fs";
-	};
+	  root=PARTLABEL=rootfs rootwait rootfstype=squashfs,jffs2";
+  };
+
 
 	memory {
 		reg = <0 0x40000000 0 0x10000000>;
